@@ -6,4 +6,6 @@ spring:
     username: frankitadmin
     password: frankitpw
     driver-class-name: org.mariadb.jdbc.Driver
-
+  jpa:
+    hibernate:
+      ddl-auto: create #개발 완료후 update로 수정예정
