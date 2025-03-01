@@ -25,4 +25,8 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     @Setter
     private String password;
+
+    @Column(nullable = false)
+    @Setter
+    private String role;
 }
