@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: frankit
@@ -9,3 +12,23 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create #개발 완료후 update로 수정예정
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+        format_sql: true
+    show-sql: true
+# 로깅 설정
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
+      hibernate:
+        sql: debug
+
+jwt:
+  secret: 7x!A%D*G-KaPdSgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7w!z%C*F-J@NcRfUjXn2r
+  access-token:
+    expiration: 3600000  # 1시간
+  refresh-token:
+    expiration: 2592000000  # 30일
