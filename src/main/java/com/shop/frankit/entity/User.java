@@ -11,14 +11,14 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Table(name = "members")
-public class Member extends BaseEntity {
+@Table(name = "users")
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     @Setter
     private String email;
 
