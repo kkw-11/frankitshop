@@ -23,11 +23,25 @@ public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
+    /**
+     * 토큰 값으로 RefreshToken 조회
+     */
     public Optional<RefreshToken> findByToken(String token) {
-        log.debug("토큰으로 RefreshToken 조회: {}", token.substring(0, 10) + "...");
+        log.debug("토큰으로 RefreshToken 조회: {}", token.substring(0, Math.min(10, token.length())) + "...");
         return refreshTokenRepository.findByToken(token);
     }
 
+    /**
+     * 이메일로 RefreshToken 조회
+     */
+    public Optional<RefreshToken> findByEmail(String email) {
+        log.debug("이메일로 RefreshToken 조회: {}", email);
+        return refreshTokenRepository.findByEmail(email);
+    }
+
+    /**
+     * 새 RefreshToken 생성
+     */
     @Transactional
     public RefreshToken createRefreshToken(String email) {
         log.info("새 Refresh 토큰 생성: {}", email);
@@ -62,6 +76,9 @@ public class RefreshTokenService {
         return savedToken;
     }
 
+    /**
+     * RefreshToken 만료 검증
+     */
     public RefreshToken verifyExpiration(RefreshToken token) {
         log.info("Refresh 토큰 만료 확인: {}", token.getEmail());
 
@@ -75,6 +92,9 @@ public class RefreshTokenService {
         return token;
     }
 
+    /**
+     * 이메일로 RefreshToken 삭제
+     */
     @Transactional
     public void deleteByEmail(String email) {
         log.info("Refresh 토큰 삭제: {}", email);
