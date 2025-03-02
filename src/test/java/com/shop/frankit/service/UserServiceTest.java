@@ -111,11 +111,11 @@ public class UserServiceTest {
         // when
         log.debug("사용자 DTO 조회: {}", ADMIN_EMAIL);
         UserDTO userDTO = userService.getUserByEmail(ADMIN_EMAIL);
-        log.debug("사용자 DTO 조회 완료: {}", userDTO.getUsername());
+        log.debug("사용자 DTO 조회 완료: {}", userDTO.getEmail());
 
         // then
         assertNotNull(userDTO);
-        assertEquals(ADMIN_EMAIL, userDTO.getUsername());
+        assertEquals(ADMIN_EMAIL, userDTO.getEmail());
         assertEquals("ADMIN", userDTO.getRole());
         log.debug("사용자 DTO 검증 완료: 역할 {}", userDTO.getRole());
 
