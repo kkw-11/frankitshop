@@ -5,6 +5,7 @@ import com.shop.frankit.dto.ProductResponse;
 import com.shop.frankit.security.UserDetailsImpl;
 import com.shop.frankit.service.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,14 +22,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/products")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public ResponseEntity<Page<ProductResponse>> getAllProducts(

@@ -5,6 +5,7 @@ import com.shop.frankit.dto.ProductOptionResponse;
 import com.shop.frankit.security.UserDetailsImpl;
 import com.shop.frankit.service.ProductOptionService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api/products/{productId}/options")
+@RequiredArgsConstructor
 public class ProductOptionController {
 
     private final ProductOptionService productOptionService;
-
-    @Autowired
-    public ProductOptionController(ProductOptionService productOptionService) {
-        this.productOptionService = productOptionService;
-    }
 
     @GetMapping
     public ResponseEntity<List<ProductOptionResponse>> getAllOptions(@PathVariable Long productId) {
