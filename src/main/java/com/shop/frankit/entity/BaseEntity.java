@@ -15,9 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class BaseEntity {
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(insertable = false)
-    private LocalDateTime updateTime;
+    private LocalDateTime updatedAt;
 }
