@@ -20,7 +20,7 @@ FrankIt Shop API는 온라인 상품 관리 시스템의 백엔드 API 서비스
 - [코드구조](https://kkwdev.notion.site/1aa096fc2e1580528498dba1b5413752?pvs=4)
 
 ### ERD
-![ERD.png](src/main/resources/static/ERD.png)
+- ![ERD.png](src/main/resources/static/ERD.png)
 
 ### API 명세서
 - [FrankIt Shop API Doc](https://www.notion.so/kkwdev/API-1a7096fc2e158085b4d5e39961df52b1?pvs=4)
