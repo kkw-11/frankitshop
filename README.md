@@ -37,8 +37,22 @@ FrankIt Shop API는 온라인 상품 관리 시스템의 백엔드 API 서비스
 - 다양한 옵션 타입 지원 (SELECT, INPUT)
 - 옵션별 추가 가격 설정
 
+### 추가 고려사항
+- 보안 강화 및 확장성을 고려한 아키텍처 설계
+  - JWT 인증시 Access Token, Refresh Token 활용
+  - Access Token 짧은 만료시간으로 보안 강화
+  - Refresh Token을 통한 Access Token 재발급 
+  - Refresh Token DB 저장을 통한 중앙 관리
+  - Spring Security를 통한 중앙화된 인증 처리
+- 객체지향 설계 원칙 적용
+  - 클래스, 메서드 최소 책임을 통한 단일 책임 원칙 적용을 통한 유지보수 및 확장성 증가
+  - 의존 역전 원칙, 리스코프 치환 원칙 적용, 인터페이스 의존을 통한 객체간 결합 최소화, 변경에 유연한 코드 설계
+- git을 통한 버전 관리
+  - 최소 단위 커밋
+  - branch 전략을 통한 코드 관리
+
 ### ERD
-![img.png](img.png)
+![ERD.png](src/main/resources/static/ERD.png)
 
 ### API 명세서
 - https://www.notion.so/kkwdev/API-1a7096fc2e158085b4d5e39961df52b1?pvs=4
