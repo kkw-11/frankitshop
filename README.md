@@ -16,18 +16,18 @@ FrankIt Shop API는 온라인 상품 관리 시스템의 백엔드 API 서비스
 - exception: 예외 처리
 - FrankitApplication.java: 애플리케이션 시작
 
+### ERD
+![ERD.png](src/main/resources/static/ERD.png)
+
+### 시스템 아키텍처 및 서비스 플로우 다이어그램
+![img.png](src/main/resources/static/system_architecture.png)
+![img.png](src/main/resources/static/service_flow_diagram.png)
+
 ## 코드 구조
 - [코드구조](https://kkwdev.notion.site/1aa096fc2e1580528498dba1b5413752?pvs=4)
 
-### ERD
-- ![ERD.png](src/main/resources/static/ERD.png)
-
 ### API 명세서
 - [FrankIt Shop API Doc](https://www.notion.so/kkwdev/API-1a7096fc2e158085b4d5e39961df52b1?pvs=4)
-
-### 시스템 아키텍처 및 서비스 플로우 다이어그램
-- ![img.png](src/main/resources/static/system_architecture.png)
-- ![img.png](src/main/resources/static/service_flow_diagram.png)
 
 ## 기능 정의 명세서 및 개념적 데이터 모델링
 - [기능 정의 명세서 및 개념적 데이터 모델링 문서](https://kkwdev.notion.site/1a8096fc2e1580f5af90ddf58a61dac4?pvs=4)
