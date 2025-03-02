@@ -11,7 +11,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create #개발 완료후 update로 수정예정
+      ddl-auto: create-drop #개발 완료후 update로 수정예정
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
