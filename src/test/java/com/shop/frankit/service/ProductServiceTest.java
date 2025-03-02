@@ -9,6 +9,7 @@ import com.shop.frankit.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +44,7 @@ public class ProductServiceTest {
         testUser.setPassword("password");
         testUser.setRole("USER");
         userRepository.save(testUser);
-        log.info("Test user created with id: {}", testUser.getId());
+        log.info("테스트 사용자가 생성되었습니다. ID: {}", testUser.getId());
 
         // 테스트용 상품 요청 준비
         productRequest = new ProductRequest();
@@ -51,12 +52,13 @@ public class ProductServiceTest {
         productRequest.setDescription("테스트 상품 설명");
         productRequest.setPrice(new BigDecimal("10000"));
         productRequest.setShippingFee(new BigDecimal("2500"));
-        log.info("Test product request prepared");
+        log.info("테스트 상품 요청이 준비되었습니다");
     }
 
     @Test
-    void 상품_생성_테스트() {
-        log.info("Starting product creation test");
+    @DisplayName("상품 생성 기능 테스트")
+    void testCreateProduct() {
+        log.info("상품 생성 테스트 시작");
         // 상품 생성
         ProductResponse response = productService.create(productRequest, testUser.getId());
 
@@ -65,15 +67,16 @@ public class ProductServiceTest {
         assertEquals("테스트 상품", response.getName());
         assertEquals(testUser.getId(), response.getUserId());
         assertNotNull(response.getRegisteredAt());
-        log.info("Product creation test passed, created product id: {}", response.getId());
+        log.info("상품 생성 테스트 통과, 생성된 상품 ID: {}", response.getId());
     }
 
     @Test
-    void 상품_조회_테스트() {
-        log.info("Starting product retrieval test");
+    @DisplayName("상품 단일 조회 기능 테스트")
+    void testFindProductById() {
+        log.info("상품 조회 테스트 시작");
         // 먼저 상품 저장
         ProductResponse savedResponse = productService.create(productRequest, testUser.getId());
-        log.debug("Product created for retrieval test, id: {}", savedResponse.getId());
+        log.debug("조회 테스트용 상품이 생성되었습니다. ID: {}", savedResponse.getId());
 
         // 상품 조회
         ProductResponse foundResponse = productService.findById(savedResponse.getId());
@@ -83,15 +86,16 @@ public class ProductServiceTest {
         assertEquals(savedResponse.getId(), foundResponse.getId());
         assertEquals("테스트 상품", foundResponse.getName());
         assertEquals(0, new BigDecimal("10000").compareTo(foundResponse.getPrice()));
-        log.info("Product retrieval test passed");
+        log.info("상품 조회 테스트 통과");
     }
 
     @Test
-    void 상품_수정_테스트() {
-        log.info("Starting product update test");
+    @DisplayName("상품 정보 수정 기능 테스트")
+    void testUpdateProduct() {
+        log.info("상품 수정 테스트 시작");
         // 먼저 상품 저장
         ProductResponse savedResponse = productService.create(productRequest, testUser.getId());
-        log.debug("Product created for update test, id: {}", savedResponse.getId());
+        log.debug("수정 테스트용 상품이 생성되었습니다. ID: {}", savedResponse.getId());
 
         // 수정할 데이터 준비
         ProductRequest updateRequest = new ProductRequest();
@@ -108,12 +112,13 @@ public class ProductServiceTest {
         assertEquals("수정된 설명", updatedResponse.getDescription());
         assertEquals(0, new BigDecimal("15000").compareTo(updatedResponse.getPrice()));
         assertEquals(0, new BigDecimal("0").compareTo(updatedResponse.getShippingFee()));
-        log.info("Product update test passed");
+        log.info("상품 수정 테스트 통과");
     }
 
     @Test
-    void 상품_목록_조회_테스트() {
-        log.info("Starting product list retrieval test");
+    @DisplayName("상품 목록 페이징 조회 기능 테스트")
+    void testFindAllProductsWithPagination() {
+        log.info("상품 목록 조회 테스트 시작");
 
         // 여러 개의 테스트 상품 등록 (페이징 테스트를 위해)
         for (int i = 0; i < 3; i++) {
@@ -124,7 +129,7 @@ public class ProductServiceTest {
             newRequest.setShippingFee(new BigDecimal("200" + i));
 
             productService.create(newRequest, testUser.getId());
-            log.debug("Created product {}", i + 1);
+            log.debug("{}번 상품 생성 완료", i + 1);
         }
 
         // 페이징 요청 생성 (첫 페이지, 페이지당 2개 항목)
@@ -139,13 +144,14 @@ public class ProductServiceTest {
         assertEquals(0, productPage.getNumber());          // 페이지 번호 확인
         assertTrue(productPage.getTotalElements() >= 3);   // 전체 항목 수 확인
 
-        log.info("Product list retrieval test passed, found {} products in total",
+        log.info("상품 목록 조회 테스트 통과, 총 {}개의 상품이 조회됨",
             productPage.getTotalElements());
     }
 
     @Test
-    void 상품_이름_검색_테스트() {
-        log.info("Starting product search by name test");
+    @DisplayName("상품 이름 기반 검색 기능 테스트")
+    void testSearchProductsByName() {
+        log.info("상품 이름 검색 테스트 시작");
 
         // 다양한 이름을 가진 테스트 상품 등록
         String[] productNames = {"아이폰 케이스", "갤럭시 케이스", "아이패드 커버", "스마트폰 충전기", "아이폰 충전기"};
@@ -157,7 +163,7 @@ public class ProductServiceTest {
             newRequest.setShippingFee(new BigDecimal("2500"));
 
             productService.create(newRequest, testUser.getId());
-            log.debug("Created product with name: {}", name);
+            log.debug("이름이 '{}'인 상품 생성 완료", name);
         }
 
         // 페이징 요청 생성
@@ -189,27 +195,28 @@ public class ProductServiceTest {
                 "Product name should contain search keyword");
         }
 
-        log.info("Product search by name test passed - found {} products with '{}' and {} products with '{}'",
-            caseResults.getTotalElements(), searchKeyword,
-            iphoneResults.getTotalElements(), searchKeyword2);
+        log.info("상품 이름 검색 테스트 통과 - '{}' 키워드로 {}개 상품, '{}' 키워드로 {}개 상품 검색됨",
+            searchKeyword, caseResults.getTotalElements(),
+            searchKeyword2, iphoneResults.getTotalElements());
     }
 
     @Test
-    void 상품_삭제_테스트() {
-        log.info("Starting product deletion test");
+    @DisplayName("상품 삭제 기능 테스트")
+    void testDeleteProduct() {
+        log.info("상품 삭제 테스트 시작");
         // 먼저 상품 저장
         ProductResponse savedResponse = productService.create(productRequest, testUser.getId());
-        log.debug("Product created for deletion test, id: {}", savedResponse.getId());
+        log.debug("삭제 테스트용 상품이 생성되었습니다. ID: {}", savedResponse.getId());
 
         // 상품 삭제
         productService.delete(savedResponse.getId(), testUser.getId());
-        log.debug("Product deletion executed");
+        log.debug("상품 삭제 실행 완료");
 
         // 삭제 후 조회 시 예외 발생하는지 확인
         Exception exception = assertThrows(EntityNotFoundException.class, () -> {
             productService.findById(savedResponse.getId());
         });
 
-        log.info("Product deletion test passed, exception message: {}", exception.getMessage());
+        log.info("상품 삭제 테스트 통과, 예외 메시지: {}", exception.getMessage());
     }
 }

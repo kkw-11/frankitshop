@@ -9,6 +9,7 @@ import com.shop.frankit.entity.User;
 import com.shop.frankit.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,7 +49,7 @@ public class ProductOptionServiceTest {
         testUser.setPassword("password");
         testUser.setRole("USER");
         userRepository.save(testUser);
-        log.info("Test user created with id: {}", testUser.getId());
+        log.info("테스트 사용자가 생성되었습니다. ID: {}", testUser.getId());
 
         // 테스트용 상품 생성
         ProductRequest productRequest = new ProductRequest();
@@ -58,12 +59,13 @@ public class ProductOptionServiceTest {
         productRequest.setShippingFee(new BigDecimal("2500"));
 
         testProduct = productService.create(productRequest, testUser.getId());
-        log.info("Test product created with id: {}", testProduct.getId());
+        log.info("테스트 상품이 생성되었습니다. ID: {}", testProduct.getId());
     }
 
     @Test
-    void 옵션_생성_테스트() {
-        log.info("Starting option creation test");
+    @DisplayName("상품 옵션 생성 테스트")
+    void testCreateOption() {
+        log.info("옵션 생성 테스트 시작");
 
         // 입력 타입 옵션 생성 요청
         ProductOptionRequest inputRequest = new ProductOptionRequest();
@@ -103,12 +105,13 @@ public class ProductOptionServiceTest {
         assertTrue(selectOption.getOptionValues().contains("파랑"));
         assertTrue(selectOption.getOptionValues().contains("검정"));
 
-        log.info("Option creation test passed");
+        log.info("옵션 생성 테스트 통과");
     }
 
     @Test
-    void 옵션_조회_테스트() {
-        log.info("Starting option retrieval test");
+    @DisplayName("상품 옵션 조회 테스트")
+    void testRetrieveOption() {
+        log.info("옵션 조회 테스트 시작");
 
         // 두 개의 옵션 생성
         ProductOptionRequest request1 = new ProductOptionRequest();
@@ -141,12 +144,13 @@ public class ProductOptionServiceTest {
         assertNotNull(allOptions);
         assertEquals(2, allOptions.size());
 
-        log.info("Option retrieval test passed");
+        log.info("옵션 조회 테스트 통과");
     }
 
     @Test
-    void 옵션_수정_테스트() {
-        log.info("Starting option update test");
+    @DisplayName("상품 옵션 수정 테스트")
+    void testUpdateOption() {
+        log.info("옵션 수정 테스트 시작");
 
         // 옵션 생성
         ProductOptionRequest createRequest = new ProductOptionRequest();
@@ -178,12 +182,13 @@ public class ProductOptionServiceTest {
         assertTrue(updatedOption.getOptionValues().contains("XS"));
         assertTrue(updatedOption.getOptionValues().contains("XL"));
 
-        log.info("Option update test passed");
+        log.info("옵션 수정 테스트 통과");
     }
 
     @Test
-    void 옵션_삭제_테스트() {
-        log.info("Starting option deletion test");
+    @DisplayName("상품 옵션 삭제 테스트")
+    void testDeleteOption() {
+        log.info("옵션 삭제 테스트 시작");
 
         // 옵션 생성
         ProductOptionRequest request = new ProductOptionRequest();
@@ -203,12 +208,13 @@ public class ProductOptionServiceTest {
             productOptionService.findByIdAndProductId(option.getId(), testProduct.getId());
         });
 
-        log.info("Option deletion test passed");
+        log.info("옵션 삭제 테스트 통과");
     }
 
     @Test
-    void 옵션_최대개수_제한_테스트() {
-        log.info("Starting maximum option limit test");
+    @DisplayName("상품 옵션 최대 개수 제한 테스트")
+    void testOptionMaxLimitEnforcement() {
+        log.info("옵션 최대개수 제한 테스트 시작");
 
         // 3개의 옵션 생성
         for (int i = 0; i < 3; i++) {
@@ -230,6 +236,6 @@ public class ProductOptionServiceTest {
             productOptionService.create(request, testProduct.getId(), testUser.getId());
         });
 
-        log.info("Maximum option limit test passed");
+        log.info("옵션 최대개수 제한 테스트 통과");
     }
 }
