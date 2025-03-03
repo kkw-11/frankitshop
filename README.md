@@ -65,7 +65,7 @@ FrankIt Shop API는 온라인 상품 관리 시스템의 백엔드 API 서비스
 ### 기술 스택
 - Language : Java 23
 - Framework : Spring Boot 3.4.3
-- Database: MySQL
+- Database: MariaDB
 - ORM : Spring Data JPA
 - Authentication : Spring Security + JWT(JSON Web Token)
 - API Doc: Notion
